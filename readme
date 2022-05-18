@@ -1,0 +1,27 @@
+1. run: docker-compose up -d
+
+2. run: docker-compose exec web bash
+    run these commands:
+    1. composer install -n
+    2. php bin/console doctrine:migrations:migrate --no-interaction
+    3. php bin/console app:map:create
+
+
+
+to create a game use:
+POST -> localhost:8080/api/create-game
+Content-type -> application/json
+body -> {"participant": "player name"}
+
+game will be created and state transfered to waiting_participants
+
+after second participant will send the request, game will be started, all players will be randomly assigned to available cells in map
+
+
+
+to check game data this endpoint can be used:
+GET -> localhost:8080/api/get-active-game
+Content-type -> application/json
+body -> {"id": #ID_OF_THE_GAME}
+
+game ID can be visible under "game-data" block after game was created
